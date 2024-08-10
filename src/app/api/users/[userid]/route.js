@@ -7,7 +7,7 @@ export async function GET(request, {params}){
     const {userid} = params
 
     try {
-        const user = await User.findById(userid);
+        const user = await User.findById(userid).select("-password");
         if(!user){
             return NextResponse.json({
                 message: "user not found !!",
@@ -28,7 +28,7 @@ export async function GET(request, {params}){
 export async function PUT(request,{ params }){
     // console.log(params);
     const { userid } = params;
-    console.log("User id: ", userid);
+    // console.log("User id: ", userid);
     const {name, password, about, profileURL} = await request.json();
 
 
