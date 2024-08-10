@@ -1,34 +1,76 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
+import { connectDb } from "@/helper/db";
+import { User } from "@/models/user";
+connectDb();
+
 // get request function
-export function GET(request){
-const users=[{
-    name:'Abhishek',
-    phone: '2525',
-    course: 'cpp',
-},
-{
-    name:'Raja',
-    phone: '2585',
-    course: 'c',
-},
-{
-    name:'Durgesh',
-    phone: '2529',
-    course: 'nextjs',
-},
-{
-    name:'Rahul',
-    phone: '3525',
-    course: 'react',
-},
-]
+export async function GET(request){
+    let users =[];
+    try {
+        users = await User.find();
+        
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({
+            message:"failed to get users",
+            success: false,
+        })
+    }
 
 return NextResponse.json(users)
 }
 
 // post request function
-export function POST(){
+// data post
+// create user
+export async function POST(request){
 
+    // featch user details from request
+
+    const {name, email, password, about, profileURL} = await request.json();
+
+
+    // create user object with user model
+try {
+    const user = new User({
+        name, 
+        email, 
+        password, 
+        about, 
+        profileURL,
+    });
+    
+    // save the object to database
+    const createdUser = await user.save();
+    console.log("User created with address:", createdUser);
+    const response = NextResponse.json(user,{
+        status: 201,
+    });
+
+    return response;
+    
+} catch (error) {
+    console.log(error);
+    return NextResponse.json({
+        message:"failed to create user !!",
+        status:false,
+    });
+    
+}
+
+    // const body = request.body;
+    // console.log(body);
+    // console.log(request.method);
+    // console.log(request.cookies);
+    // console.log(request.headers);
+    // console.log(request.nextUrl.pathname);
+    // console.log(request.nextUrl.searchParams);
+    // const jsonData = await request.json();
+    // console.log(jsonData);
+
+    // return NextResponse.json({
+    //     "message":"Posting user data",
+    // });
 }
 
 // update request function
