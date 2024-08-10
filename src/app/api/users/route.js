@@ -74,17 +74,17 @@ try {
 }
 
 // update request function
-export function PUT(){
+// export function PUT(){
     
-}
+// }
 
 // delete request function
 // uri variable
-export function DELETE(request){
-    console.log("delete api called");
-    return NextResponse.json({
-        message: "deleted !!",
-        status:true,
-    },{status:201, statusText: "hey changed text"})
+// export function DELETE(request){
+//     console.log("delete api called");
+//     return NextResponse.json({
+//         message: "deleted !!",
+//         status:true,
+//     },{status:201, statusText: "hey changed text"})
     
-}
+// }
