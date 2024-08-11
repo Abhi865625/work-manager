@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
 import { Task } from "@/models/task";
+import { getResponseMessage } from "@/helper/responseMessage";
 
-// /tasks
-export async function GET(request){
-    return NextResponse.json({
-        "message":"task's api getting data"
-    })
-}
 
-// create all the tasks
+// create task
 
 export async function POST(request) {
 
@@ -31,11 +26,19 @@ export async function POST(request) {
         
     } catch (error) {
         console.log(error)
-        return NextResponse.json({
-            message: "falid to create task !!",
-            status:false,
-        })
-        
+        return getResponseMessage("falid to create task !!", 500, false);
     }
     
+}
+
+// /tasks
+export async function GET(request){
+    try {
+        const tasks = await Task.find();
+
+        return NextResponse.json(tasks);
+    } catch (error) {
+        console.log(error);
+        return getResponseMessage("error in getting data !!, 404, false");
+    }
 }
