@@ -24,10 +24,10 @@ const CustomNavbar = () => {
         <div>
             <ul className='flex space-x-5'>
             <li>
-            <Link href={'/show-task'} className='hover:text-blue-200'>Login</Link>
+            <Link href={'/login'} className='hover:text-blue-200'>Login</Link>
             </li>
             <li>
-            <Link href={'/show-task'} className='hover:text-blue-200'>Signup</Link>
+            <Link href={'/signup'} className='hover:text-blue-200'>Signup</Link>
             </li>
             </ul>
         </div>

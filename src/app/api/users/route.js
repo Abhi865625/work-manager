@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { connectDb } from "@/helper/db";
 import { User } from "@/models/user";
+import bcrypt from "bcryptjs";
 connectDb();
 
 // get request function
@@ -29,18 +30,36 @@ export async function POST(request){
 
     const {name, email, password, about, profileURL} = await request.json();
 
+     // Check if the email already exists
+     const existingUser = await User.findOne({ email });
+     if (existingUser) {
+         return NextResponse.json({
+             message: "Email already in use. Please use a different email.",
+             status: false,
+         }, {
+             status: 400,
+         });
+     }
+
+    // Generate a salt with a specified number of rounds (e.g., 10)
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash the password using the generated salt
+    const hashedPassword = await bcrypt.hash(password, salt);
+
 
     // create user object with user model
 try {
     const user = new User({
         name, 
         email, 
-        password, 
+        password: hashedPassword, 
         about, 
         profileURL,
     });
     
     // save the object to database
+    
     const createdUser = await user.save();
     console.log("User created with address:", createdUser);
     const response = NextResponse.json(user,{
@@ -54,6 +73,8 @@ try {
     return NextResponse.json({
         message:"failed to create user !!",
         status:false,
+    },{
+        status:500,
     });
     
 }
