@@ -1,111 +1,91 @@
-import { NextResponse } from "next/server"
 import { connectDb } from "@/helper/db";
 import { User } from "@/models/user";
+import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 connectDb();
 
 // get request function
-export async function GET(request){
-    let users =[];
-    try {
-        users = await User.find().select("-password");
-        
-    } catch (error) {
-        console.log(error)
-        return NextResponse.json({
-            message:"failed to get users",
-            success: false,
-        })
-    }
+export async function GET(request) {
+  let users = [];
+  try {
+    users = await User.find().select("-password");
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({
+      message: "failed to get users",
+      success: false,
+    });
+  }
 
-return NextResponse.json(users)
+  return NextResponse.json(users);
 }
 
 // post request function
 // data post
-// create user
-export async function POST(request){
+//create user
+export async function POST(request) {
+  // fetch user detail from  request
 
-    // featch user details from request
+  const { name, email, password, about, profileURL } = await request.json();
 
-    const {name, email, password, about, profileURL} = await request.json();
+  console.log({ name, email, password, about, profileURL });
 
-     // Check if the email already exists
-     const existingUser = await User.findOne({ email });
-     if (existingUser) {
-         return NextResponse.json({
-             message: "Email already in use. Please use a different email.",
-             status: false,
-         }, {
-             status: 400,
-         });
-     }
+  // create user object with user model
 
-    // Generate a salt with a specified number of rounds (e.g., 10)
-    const salt = await bcrypt.genSalt(10);
+  const user = new User({
+    name,
+    email,
+    password,
+    about,
+    profileURL,
+  });
 
-    // Hash the password using the generated salt
-    const hashedPassword = await bcrypt.hash(password, salt);
+  try {
+    // save the object to  database
+    user.password = bcrypt.hashSync(
+      user.password,
+      parseInt(process.env.BCRYPT_SALT)
+    );
 
-
-    // create user object with user model
-try {
-    const user = new User({
-        name, 
-        email, 
-        password: hashedPassword, 
-        about, 
-        profileURL,
-    });
-    
-    // save the object to database
-    
+    console.log(user);
     const createdUser = await user.save();
-    console.log("User created with address:", createdUser);
-    const response = NextResponse.json(user,{
-        status: 201,
+    const response = NextResponse.json(user, {
+      status: 201,
     });
-
     return response;
-    
-} catch (error) {
+  } catch (error) {
     console.log(error);
-    return NextResponse.json({
-        message:"failed to create user !!",
-        status:false,
-    },{
-        status:500,
-    });
-    
+    return NextResponse.json(
+      {
+        message: "failed to create user !!",
+        status: false,
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+
+  // const body = request.body;
+  // console.log(body);
+  // console.log(request.method);
+  // console.log(request.cookies);
+  // console.log(request.headers);
+  // console.log(request.nextUrl.pathname);
+  // console.log(request.nextUrl.searchParams);
+
+  // const jsonData = await request.json();
+
+  // const textData = await request.text();
+
+  // console.log(jsonData);
+
+  // console.log(textData);
+
+  // return NextResponse.json({
+  //   message: "posting user data",
+  // });
 }
 
-    // const body = request.body;
-    // console.log(body);
-    // console.log(request.method);
-    // console.log(request.cookies);
-    // console.log(request.headers);
-    // console.log(request.nextUrl.pathname);
-    // console.log(request.nextUrl.searchParams);
-    // const jsonData = await request.json();
-    // console.log(jsonData);
-
-    // return NextResponse.json({
-    //     "message":"Posting user data",
-    // });
-}
-
-// update request function
-// export function PUT(){
-    
-// }
-
-// delete request function
+// delete request  function
 // uri variable
-// export function DELETE(request){
-//     console.log("delete api called");
-//     return NextResponse.json({
-//         message: "deleted !!",
-//         status:true,
-//     },{status:201, statusText: "hey changed text"})
-    
-// }

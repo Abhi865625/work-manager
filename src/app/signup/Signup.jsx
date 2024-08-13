@@ -1,10 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import signUpBanner from "../../assets/signup.svg";
+import signUpBanner from "../../assets/singup.svg";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { signUp } from "@/services/userService";
-
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
@@ -27,9 +26,9 @@ const Signup = () => {
       return;
     }
 
-    // TODO: rest of the field
+    /// TODO: rest of the field
 
-    //
+    /////
     // form submit
     try {
       const result = await signUp(data);
@@ -50,7 +49,7 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
       console.log(error.response.data.message);
-      toast.error("Signup Error !! "+ error.response.data.message,{
+      toast.error("Signup Error !! " + error.response.data.message, {
         position: "top-center",
       });
     }
@@ -81,7 +80,7 @@ const Signup = () => {
             />
           </div>
           <h1 className="text-3xl text-center">Signup Here </h1>
-        <form action="#!" className="mt-5" onSubmit={doSignup}>
+          <form action="#!" className="mt-5" onSubmit={doSignup}>
             {/* name */}
             <div className="mt-3">
               <label
@@ -92,7 +91,7 @@ const Signup = () => {
               </label>
               <input
                 type="text"
-                className="w-full p-3 rounded-2xl focus:ring-gray-400-100 border border-gray-800"
+                className="w-full p-3 rounded-2xl bg-gray-800 focus:ring-gray-400-100 border border-gray-800"
                 placeholder="Enter here"
                 name="user_name"
                 onChange={(event) => {
@@ -114,7 +113,7 @@ const Signup = () => {
               </label>
               <input
                 type="email"
-                className="w-full p-3 rounded-2xl focus:ring-gray-400-100 border border-gray-800"
+                className="w-full p-3 rounded-2xl bg-gray-800 focus:ring-gray-400-100 border border-gray-800"
                 placeholder="Enter here"
                 id="user_email"
                 name="user_email"
@@ -137,7 +136,7 @@ const Signup = () => {
               </label>
               <input
                 type="password"
-                className="w-full p-3 rounded-2xl focus:ring-gray-400-100 border border-gray-800"
+                className="w-full p-3 rounded-2xl bg-gray-800 focus:ring-gray-400-100 border border-gray-800"
                 placeholder="Enter here"
                 id="user_password"
                 onChange={(event) => {
@@ -158,7 +157,7 @@ const Signup = () => {
                 About
               </label>
               <textarea
-                className="w-full p-3 rounded-2xl focus:ring-gray-400-100 border border-gray-800"
+                className="w-full p-3 rounded-2xl bg-gray-800 focus:ring-gray-400-100 border border-gray-800"
                 placeholder="Enter here"
                 id="user_about"
                 name="user_about"
@@ -175,14 +174,14 @@ const Signup = () => {
             <div className="mt-3 text-center">
               <button
                 type="submit"
-                className="px-3 py-2 bg-green-600 rounded hover:bg-green-500 text-white"
+                className="px-3 py-2 bg-green-600  rounded hover:bg-green-400"
               >
                 Signup
               </button>
               <button
                 onClick={resetForm}
                 type="button"
-                className="px-3 py-2 bg-orange-600 ms-3 rounded hover:bg-orange-400 text-white"
+                className="px-3 py-2 bg-orange-600 ms-3 rounded hover:bg-orange-400"
               >
                 Reset
               </button>

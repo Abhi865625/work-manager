@@ -1,19 +1,21 @@
+// localhost:3000/api/users/[userId]/tasks
+
 import { getResponseMessage } from "@/helper/responseMessage";
 import { Task } from "@/models/task";
 import { NextResponse } from "next/server";
 
-// api/users/[userid]/tasks
-export async function GET(request, {params}){
-    const {userid} = params;
+export async function GET(request, { params }) {
+  const { userId } = params;
 
-    try {
-        const tasks = await Task.find({
-            userid:userid
-        });
+  try {
+    // get user using id
 
-        return NextResponse.json(tasks);
-    } catch (error) {
-        console.log(error);
-        return getResponseMessage("error in getting data !!, 404, false");
-    }
+    const tasks = await Task.find({
+      userId: userId,
+    });
+    return NextResponse.json(tasks);
+  } catch (error) {
+    console.log(error);
+    return getResponseMessage("Failed to get tasks", 404, false);
+  }
 }

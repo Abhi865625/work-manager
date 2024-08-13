@@ -1,7 +1,3 @@
-export default function About(){
-    return (
-        <div>
-            <h1>This is user profile</h1>
-        </div>
-    )
- }
+export default function UserProfile() {
+  return <h1>This is normal user proflie</h1>;
+}

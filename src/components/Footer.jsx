@@ -1,26 +1,33 @@
-"use client"
-import Link from 'next/link'
-import React from 'react'
+"use client";
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className='h-30 bg-blue-600 text-white mt-5'>
-      <div className='flex p-5 justify-around text-center'>
-        <div className='text-center flex flex-col items-center'>
-          <h1 className='text-3xl'>Welcome to work manager</h1>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil, ullam?</p>
+    <footer className="h-40 bg-blue-600 mt-5">
+      <div className="flex p-5 justify-around">
+        <div className="text-center flex flex-col justify-center">
+          <h1 className="text-3xl">Welcome to work manager</h1>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, ab!
+          </p>
         </div>
-        <div>
+        <div className="text-center">
           <h1>Important Links</h1>
           <ul>
-            <li><Link href={'#!'}>Facebook</Link></li>
-            <li><Link href={'#!'}>Youtube</Link></li>
-            <li><Link href={'#!'}>Twitter</Link></li>
+            <li>
+              <a href="#!">Facebook</a>
+            </li>
+            <li>
+              <a href="#!">YouTube</a>
+            </li>
+            <li>
+              <a href="#!">Instagram</a>
+            </li>
           </ul>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,13 +1,12 @@
-import React from 'react'
-import Login from './Login';
+import React from "react";
+import Login from "./Login";
 
-export const metadata={
-    title:"Login : Work Manager"
-}
+export const metadata = {
+  title: "Login: Work Manager",
+};
+
 function LoginPage() {
-  return (
-    <Login/>
-  )
+  return <Login />;
 }
 
 export default LoginPage;

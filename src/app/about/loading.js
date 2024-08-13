@@ -1,8 +1,7 @@
-export default function loading(){
-    return (
-        <div>
-            <p>Loading...</p>
-        </div>
-    )
-
+export default function Loading() {
+  return (
+    <div>
+      <p>Loading...</p>
+    </div>
+  );
 }

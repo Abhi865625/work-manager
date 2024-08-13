@@ -1,13 +1,12 @@
-import React from 'react'
-import Signup from './Signup'
+import React from "react";
+import Signup from "./Signup";
 
-export const metadata ={
-    title:"Signup : Work Manager"
-  }
+export const metadata = {
+  title: "Signup : Work Manager",
+};
+
 const SignUpPage = () => {
-  return (
-    <Signup/>
-  )
-}
+  return <Signup />;
+};
 
-export default SignUpPage
+export default SignUpPage;

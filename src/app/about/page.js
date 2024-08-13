@@ -1,15 +1,15 @@
-async function takeTime(){
-    await new Promise((resolve)=>{
-        setTimeout(resolve, 3000)
-    })
+async function takeTime() {
+  await new Promise((resvole) => {
+    setTimeout(resvole, 3000);
+  });
 }
 
-export default async function About(){
-    // throw new Error("This is manual error");
-   await takeTime();
-    return (
-        <div>
-            <h1>This is about page</h1>
-        </div>
-    )
- }
+export default async function About() {
+  await takeTime();
+  // throw new Error("this is manual error");
+  return (
+    <div>
+      <h1>This is about page</h1>
+    </div>
+  );
+}
