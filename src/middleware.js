@@ -49,7 +49,7 @@ export function middleware(request) {
   //   return NextResponse.redirect(new URL("/home", request.url));
 }
 
-// See "Matching Paths" below to learn more
+// See "Matching Paths" below to learn more in details
 export const config = {
   matcher: [
     "/",
